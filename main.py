@@ -7,8 +7,7 @@ db = mongo.OwO
 noti = db.noti
 
 #Channel
-OWO_TICKET_CHANNEL = 420104212895105044
-NOTI_CHANNEL = 123
+OWO_TICKET_CHANNEL = 822972235996201021
 TOKEN = ""
 
 bot = commands.Bot(command_prefix="#",self_bot = True)
@@ -17,13 +16,25 @@ bot = commands.Bot(command_prefix="#",self_bot = True)
 
 def extract(content):
     content = content.lower()
+
     if "stock:" in content:
         stock_part = content.split("stock:")[1].strip()
+    elif "stocks:" in content:
+        stock_part = content.split("stocks:")[1].strip()
+    elif "stock " in content:
+        stock_part = content.split("stock ")[1].strip()
+    elif "stocks " in content:
+        stock_part = content.split("stocks ")[1].strip()
     else:
-        stock_part = content.split("stocks")[1].strip()
-    
-    stock_info = stock_part.replace(":", "").strip()
-    return stock_info
+        raise ValueError("Error extract")
+
+    stock_info = stock_part.split()[0]  
+    stock_info = "".join(c for c in stock_info if c.isdigit())
+
+    if stock_info:
+        return int(stock_info)
+
+
 
 @bot.event
 async def on_ready():
@@ -38,28 +49,28 @@ async def sync():
             {"$set": {"message_ids": [], "stocks": []}},
             upsert=True
         )
-        print("Xóa dữ liệu cũ")
+        print("Deleted data")
 
-        async for message in channel.history(limit=10): #limit 
+        async for message in channel.history(limit=10): 
             if "stock" in message.content.lower() or "stocks" in message.content.lower():
-                try:
-                    stock_info = extract(message.content)
+                stock_info = extract(message.content)
+                if stock_info == None:
+                    continue
                     
-                    db = noti.find_one({"_id": "stock_tracker"}) or {}
-                    message_id = db.get("message_ids", [])
-                    stock = db.get("stocks", [])
+                db = noti.find_one({"_id": "stock_tracker"}) or {}
+                message_id = db.get("message_ids", [])
+                stock = db.get("stocks", [])
                     
-                    message_id.append(message.id)
-                    stock.append(stock_info)
+                message_id.append(message.id)
+                stock.append(stock_info)
                     
-                    noti.update_one(
-                        {"_id": "stock_tracker"},
-                        {"$set": {"ticket": True, "message_ids": message_id, "stocks": stock}},
-                        upsert=True
-                    )
-                    print(f"Sync: Stock: {stock_info}, Message ID: {message.id}")
-                except (IndexError, ValueError):
-                    print(f"Error Sync: {message.content}")
+                noti.update_one(
+                    {"_id": "stock_tracker"},
+                    {"$set": {"ticket": True, "message_ids": message_id, "stocks": stock}},
+                    upsert=True
+                )
+                print(f"Sync: Stock: {stock_info}, Message ID: {message.id}")
+                    
 
 @bot.event
 async def on_message(message):
