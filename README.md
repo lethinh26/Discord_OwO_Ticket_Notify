@@ -1,7 +1,7 @@
 # Discord OwO Ticket Notify
 
 ## Important Note
-Since this is a self-bot, it only runs and logs notifications in the console. It has limited practicality as using self-bots violates Discord’s Terms of Service, increasing the risk of account termination. To avoid detection and potential account loss, consider upgrading to the dedicated bot version that I have prepared: [Discord_OwO_Ticket_Notify_Bot](https://github.com/lethinh26/Discord_OwO_Ticket_Notify_Bot).
+This code has been intentionally restricted to minimize the risk of being detected by Discord. Since it is a self-bot, it only runs and logs notifications in the console. However, self-bots violate Discord’s Terms of Service, which can lead to account termination. If you want to unlock the full potential of this bot, consider using the dedicated bot version that I have prepared: [Discord_OwO_Ticket_Notify_Bot](https://github.com/lethinh26/Discord_OwO_Ticket_Notify_Bot).
 
 ## Author
 **Creator:** lethinh26
