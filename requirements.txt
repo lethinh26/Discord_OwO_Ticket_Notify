@@ -1,2 +1,0 @@
-pymongo==4.10.1
-git+https://github.com/dolfies/discord.py-self.git

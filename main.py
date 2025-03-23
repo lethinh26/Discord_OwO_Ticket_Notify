@@ -161,7 +161,7 @@ async def on_raw_message_delete(payload):
 
             noti.update_one(
                 {"_id": "stock_tracker"},
-                {"$set": {"message_ids": message_id, "stocks": stock, "prices": price}}, 
+                {"$set": {"ticket": True, "message_ids": message_id, "stocks": stock, "prices": price}}, 
                 upsert=True
             )
             print(f"Deleted: {payload.message_id}")
