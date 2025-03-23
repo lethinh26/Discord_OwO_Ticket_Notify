@@ -31,8 +31,7 @@ pip install -r requirements.txt
    ```
 2. Configure the bot by modifying the following variables in the script:
    ```python
-   OWO_TICKET_CHANNEL = 420104212895105044  # This is the channel id seller-ads DO NOT EDIT
-   NOTI_CHANNEL = 123  # Replace your notification channel ID
+   OWO_TICKET_CHANNEL = 822972235996201021  # This is the channel id seller-ads DO NOT EDIT
    TOKEN = ""  # Your Discord self-bot token
    ```
 3. Start the bot:
