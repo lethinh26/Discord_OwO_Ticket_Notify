@@ -37,6 +37,14 @@ def extract(content):
     elif "price " in content:
         price_part = content.split("price ")[1].strip()
         price_info = price_part.split()[0]
+    if "cost::" in content:
+        price_part = content.split("cost:")[1].strip()
+        price_info = price_part.split()[0]  
+    elif "cost " in content:
+        price_part = content.split("cost ")[1].strip()
+        price_info = price_part.split()[0]
+    
+    
 
     return int(stock_info), price_info  
 
@@ -53,7 +61,7 @@ async def sync():
     if channel:
         noti.update_one(
             {"_id": "stock_tracker"},
-            {"$set": {"message_ids": [], "stocks": [], "prices": []}},  # Thêm price
+            {"$set": {"message_ids": [], "stocks": [], "prices": []}},  
             upsert=True
         )
         print("Deleted data")
