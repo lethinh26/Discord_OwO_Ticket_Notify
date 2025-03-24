@@ -37,7 +37,7 @@ def extract(content):
     elif "price " in content:
         price_part = content.split("price ")[1].strip()
         price_info = price_part.split()[0]
-    if "cost::" in content:
+    elif "cost:" in content:
         price_part = content.split("cost:")[1].strip()
         price_info = price_part.split()[0]  
     elif "cost " in content:
